@@ -1,14 +1,20 @@
 package com.example.myapplication.model;
 
 public class User {
+    private String mFirstname;
 
-    private String mFirstName;
-
-    public String getFirstName() {
-        return mFirstName;
+    public String getFirstname() {
+        return mFirstname;
     }
 
-    public void setFirstName(String firstName) {
-        mFirstName = firstName;
+    public void setFirstname(String firstname) {
+        mFirstname = firstname;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "mFirstname='" + mFirstname + '\'' +
+                '}';
     }
 }
