@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import androidx.annotation.NonNull;
+
 public class User {
     private String mFirstname;
 
@@ -11,6 +13,7 @@ public class User {
         mFirstname = firstname;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "User{" +

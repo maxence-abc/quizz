@@ -1,6 +1,5 @@
 package com.example.myapplication.controller;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -82,7 +82,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(BUNDLE_STATE_SCORE, mScore);
         outState.putInt(BUNDLE_STATE_QUESTION, mNumberOfQuestions);
@@ -103,20 +103,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mEnableTouchEvents = false;
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mEnableTouchEvents = true;
+        new Handler().postDelayed(() -> {
+            mEnableTouchEvents = true;
 
-                // If this is the last question, end the game.
-                // Else, display the next question.
-                if (--mNumberOfQuestions == 0) {
-                    // End the game
-                    endGame();
-                } else {
-                    mCurrentQuestion = mQuestionBank.getQuestion();
-                    displayQuestion(mCurrentQuestion);
-                }
+            // If this is the last question, end the game.
+            // Else, display the next question.
+            if (--mNumberOfQuestions == 0) {
+                // End the game
+                endGame();
+            } else {
+                mCurrentQuestion = mQuestionBank.getQuestion();
+                displayQuestion(mCurrentQuestion);
             }
         }, 2000); // LENGTH_SHORT is usually 2 seconds long
     }
@@ -131,15 +128,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         builder.setTitle("Bravo!")
                 .setMessage("Ton score est " + mScore)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // End the activity
-                        Intent intent = new Intent();
-                        intent.putExtra(BUNDLE_EXTRA_SCORE, mScore);
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    }
+                .setPositiveButton("OK", (dialog, which) -> {
+                    // End the activity
+                    Intent intent = new Intent();
+                    intent.putExtra(BUNDLE_EXTRA_SCORE, mScore);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 })
                 .setCancelable(false)
                 .create()

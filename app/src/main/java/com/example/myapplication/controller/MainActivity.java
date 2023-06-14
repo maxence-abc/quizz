@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -67,18 +66,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mPlayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String firstname = mNameEditText.getText().toString();
-                mUser.setFirstname(firstname);
+        mPlayButton.setOnClickListener(v -> {
+            String firstname = mNameEditText.getText().toString();
+            mUser.setFirstname(firstname);
 
-                mPreferences.edit().putString(PREF_KEY_FIRSTNAME, mUser.getFirstname()).apply();
+            mPreferences.edit().putString(PREF_KEY_FIRSTNAME, mUser.getFirstname()).apply();
 
-                // User clicked the button
-                Intent gameActivityIntent = new Intent(MainActivity.this, GameActivity.class);
-                startActivityForResult(gameActivityIntent, GAME_ACTIVITY_REQUEST_CODE);
-            }
+            // User clicked the button
+            Intent gameActivityIntent = new Intent(MainActivity.this, GameActivity.class);
+            startActivityForResult(gameActivityIntent, GAME_ACTIVITY_REQUEST_CODE);
         });
     }
 

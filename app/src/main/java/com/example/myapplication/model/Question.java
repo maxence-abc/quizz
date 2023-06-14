@@ -1,5 +1,7 @@
 package com.example.myapplication.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 
@@ -48,6 +50,7 @@ public class Question {
         mAnswerIndex = answerIndex;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Question{" +
